@@ -61,11 +61,12 @@ module.exports = function(options) {
 							);
 							var originalRelativePathArray = originalRelativePath.split(path.sep);
 
-							replacements[i] = path.posix?
-									path.posix.join.apply(this, originalRelativePathArray):
-									path.normalize(originalRelativePath).replace(/\\/g, '/').replace('//', '/');
 							if(process.platform === 'win32') {
-								replacements[i] = replacements[i].replace(/\\/g, '\\\\')
+								replacements[i] = address.replace('file:///', '').replace('.js', '').replace(/\\/g, '\\\\')
+							} else {
+								replacements[i] = path.posix?
+										path.posix.join.apply(this, originalRelativePathArray):
+										path.normalize(originalRelativePath).replace(/\\/g, '/').replace('//', '/');
 							}
 						}
 					});
