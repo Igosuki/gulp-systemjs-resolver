@@ -64,6 +64,9 @@ module.exports = function(options) {
 							replacements[i] = path.posix?
 									path.posix.join.apply(this, originalRelativePathArray):
 									path.normalize(originalRelativePath).replace(/\\/g, '/').replace('//', '/');
+							if(process.platform === 'win32') {
+								replacements[i] = replacements[i].replace(/\\/g, '\\\\')
+							}
 						}
 					});
 		}
